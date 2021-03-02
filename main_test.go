@@ -17,18 +17,24 @@
 package main_test
 
 import (
+	"fmt"
 	"testing"
+	"time"
 
 	"github.com/stretchr/testify/suite"
 
-	"github.com/networkservicemesh/integration-tests/suites/memory"
-	"github.com/networkservicemesh/integration-tests/suites/sriov"
+	"github.com/networkservicemesh/integration-k8s-packet/pullpacket"
+	"github.com/networkservicemesh/integration-k8s-packet/setup"
 )
 
-func TestMemory(t *testing.T) {
-	suite.Run(t, new(memory.Suite))
-}
+func Test(t *testing.T) {
+	suite.Run(t, new(setup.Suite))
 
-func TestSRIOV(t *testing.T) {
-	suite.Run(t, new(sriov.Suite))
+	start := time.Now()
+	println("-- START: ", fmt.Sprint(start))
+
+	suite.Run(t, new(pullpacket.Suite))
+
+	println("-- END: ", fmt.Sprint(time.Now()))
+	println("-- DURATION: ", fmt.Sprint(time.Since(start)))
 }
